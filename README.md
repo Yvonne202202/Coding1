@@ -4,7 +4,7 @@ MIMIC: https://mimicproject.com/code/2fc91290-133d-02e8-00de-3cff5bf5ab36
 
 Please use Safari to open it (Google Chrome does not load properly).
 ## Project brief
-The project incorporates technology from Sound and Signal processing and 3D graphics. The basic 3D graphics engine was created using a simple 2D drawing context.
+The project incorporates technology from Sound and Signal processing and 3D graphics. The 3D graphics engine was created using a simple 2D drawing context.
 
 ## Sound Part
 * Maximilian library is used.
