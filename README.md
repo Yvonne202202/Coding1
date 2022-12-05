@@ -33,6 +33,26 @@ The project incorporates technology from Sound and Signal processing and 3D grap
 ```
 * The maxiClock system is also used. Call ticker() inside the play() function to advance the clock.
 The song() function is created and the conditional statement and modulus % are used in it to produce a more interesting rhythm.
+```
+     function song()
+     {
+        var out = 0;
+        myClock.ticker();
+        if( myClock.tick && myClock.playHead%beatPlay===0)
+        {
+           loop.trigger();
+        }
+    
+        if(myClock.tick && parseInt(loopPlay/64)===1){
+      
+           beat.trigger();
+        }
+        if(myClock.tick && myClock.playHead%chordPlay===4){
+      
+           chord.trigger();
+        }
+      }
+ ```
 
 ## 3D Graphics
 Basic perspective projection is used. 
