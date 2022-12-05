@@ -93,6 +93,7 @@ Basic perspective projection is used.
 ## The challenges of development projects
 * The sound is sometimes distorted, which makes the mix often sound bad.
 * Different browsers load different pages due to browser compatibility issues.
+* The sphere of points is so thin that it doesn't look obvious.
 
 ## Future plan
 I would like to create sphere of points that move to follow the rhythm of the sound.
