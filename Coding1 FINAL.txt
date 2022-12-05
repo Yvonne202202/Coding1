@@ -74,7 +74,7 @@ var spacing = ((Math.PI * 5.5) / dim);
 var numPoints = dim * dim;
 
 // This is how big the sphere is.
-var size = 650;
+var size = 500;
   
   audio.init();
   
@@ -101,11 +101,11 @@ function song(){
       loop.trigger();
     }
     
-    if(myClock.tick && parseInt(loopPlay/64)==1){
+    if(myClock.tick && parseInt(loopPlay/64)===1){
       
       beat.trigger();
     }
-  		if(myClock.tick && myClock.playHead%chordPlay===4){
+    if(myClock.tick && myClock.playHead%chordPlay===4){
       
       chord.trigger();
     }
@@ -126,7 +126,7 @@ var loopOut = loop.playOnce(0.2)+2;
     //return the output to the speakers.  
       return song();
        
-	}
+ }
   // Now we build the sphere
 for (var i = 0; i < dim ; i++) {
 
@@ -221,20 +221,20 @@ var grd=context.createRadialGradient(mouseX,mouseY,80,mouseX,mouseY,300);
       
         context.stroke();
     }
-	requestAnimationFrame(draw);
+ requestAnimationFrame(draw);
 }
 
-	requestAnimationFrame(draw);
+ requestAnimationFrame(draw);
 
 function rotateX(point3d,angleX) {
-        var	x = point3d[0]; 
-        var	z = point3d[2]; 
-	
-        var	cosRY = Math.cos(angleX);
-        var	sinRY = Math.sin(angleX);
+        var x = point3d[0]; 
+        var z = point3d[2]; 
+ 
+        var cosRY = Math.cos(angleX);
+        var sinRY = Math.sin(angleX);
         
-        var	tempz = z; 
-        var	tempx = x;
+        var tempz = z; 
+        var tempx = x;
 
         x= (tempx*cosRY)+(tempz*sinRY);
         z= (tempx*sinRY)+(tempz*-cosRY);
@@ -246,13 +246,13 @@ function rotateX(point3d,angleX) {
 
 function rotateY(point3d,angleY) {
         var y = point3d[1];
-        var	z = point3d[2]; 
-	
+        var z = point3d[2]; 
+ 
         var cosRX = Math.cos(angleY);
         var sinRX = Math.sin(angleY);
         
-        var	tempz = z; 
-        var	tempy = y;
+        var tempz = z; 
+        var tempy = y;
 
         y= (tempy*cosRX)+(tempz*sinRX);
         z= (tempy*sinRX)+(tempz*-cosRX);
