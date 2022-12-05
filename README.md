@@ -92,7 +92,7 @@ Basic perspective projection is used.
 ```
 ## The challenges of development projects
 * The sound is sometimes distorted, which makes the mix often sound bad.
-* Different browsers load different pages due to browser compatibility issues.
+* Different browsers load different pages due to browser compatibility issues. My project was made in Safari, and the audio that had been uploaded could not load properly when I opened the link in Google Chrome.
 * The sphere of points is so thin that it doesn't look obvious.
 
 ## Future plan
