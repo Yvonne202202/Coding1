@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <script>window.onerror = function(error, url, line) {parent.postMessage(["console", "❌ -- [ERROR] -- ❌ -- ⚠️ " + error], "*")};var cl = console.log;console.log = function () {var msg = [...arguments].join();parent.postMessage(["console", msg], "*");  }  </script><script>window.onerror = function(error, url, line) {parent.postMessage(["console", "❌ -- [ERROR] -- ❌ -- ⚠️ " + error], "*")};var cl = console.log;console.log = function () {var msg = [...arguments].join();parent.postMessage(["console", msg], "*");  } 
+</script><script src = "https://mimicproject.com/libs/maximilian.js">
+</script>
+</head>
+<style>
+
+/*  
+    This is to make sure
+    the canvas is in the right position
+    on all browsers    
+*/
+
+canvas {
+position: absolute;
+top:0;
+left:0;
+}
+
+</style>
+<body>
+    <canvas></canvas>
+<script language="javascript" type="text/javascript">
+  
+  
+  var counter = 0;
+  var maxi = maximilian();
+  var audio = new maxi.maxiAudio();
+  var myOsc = new maxi.maxiOsc();
+  var myClock = new maxi.maxiClock();
+  var beat = new maxi.maxiSample();
+  var loop = new maxi.maxiSample();
+  var chord = new maxi.maxiSample();
+  var beatPlay = 64;
+  var loopPlay = 1.5;
+  var chordPlay = 2;
+  
+var fov =800;
+
+var canvas = document.querySelector("canvas");
+var width = window.innerWidth;
+var height = window.innerHeight;
+var context = canvas.getContext("2d");
+canvas.setAttribute("width", width);
+canvas.setAttribute("height", height);
+canvas.addEventListener('mousemove',getMouse,false);
+var mouseX=0;
+var mouseY=0;
+
+var point = [];
+var points = [];
+var point3d = [];
+var angleX = 0;
+var angleY = 0;
+var HALF_WIDTH = width;
+var HALF_HEIGHT = height/2;
+
+var x3d = 0;
+var y3d = 0;
+var z3d = 0;
+
+var lastScale = 0;
+var lastx2d = 0;
+var lasty2d = 0;
+
+// The below code creates a sphere of points
+var dim = 80; // This is the number of rings
+// Each ring has as many points as there are rings8
+// This is the spacing for each ring
+var spacing = ((Math.PI * 5.5) / dim);
+//var spacing = 200
+//var spacing = Math.sin(dim)
+// This is the total number of points
+var numPoints = dim * dim;
+
+// This is how big the sphere is.
+var size = 500;
+  
+  audio.init();
+  
+  audio.loadSample('loop.wav',loop);
+  audio.loadSample('beat.wav',beat);
+  audio.loadSample('chord.wav',chord);
+  myClock.setTempo(120);
+  myClock.setTicksPerBeat(4);
+  
+  
+  
+  
+function song(){
+  
+  
+  var out = 0;
+  
+  
+    myClock.ticker();
+  
+    
+    if( myClock.tick && myClock.playHead%beatPlay===0){
+      
+      loop.trigger();
+    }
+    
+    if(myClock.tick && parseInt(loopPlay/64)===1){
+      
+      beat.trigger();
+    }
+    if(myClock.tick && myClock.playHead%chordPlay===4){
+      
+      chord.trigger();
+    }
+
+var loopOut = loop.playOnce(0.2)+2;
+      var beatOut = beat.play(myOsc.sinewave(0.01))*10;
+      var chordOut = chord.play(1)*0.7;
+    out = loopOut + beatOut + chordOut;
+
+
+    
+    return out ;
+     
+  }
+  
+  audio.play = function() {
+
+    //return the output to the speakers.  
+      return song();
+       
+ }
+  // Now we build the sphere
+for (var i = 0; i < dim ; i++) {
+
+    
+   var z = size * Math.cos(spacing/2 * i)*1.2; 
+  var s = size* Math.sin(spacing/2*i)*1.2;
+
+
+    
+    for (var j = 0; j < dim; j++ ) {
+        
+
+     var point = [Math.tan(spacing * j) * s,
+                  Math.sin(spacing * j) * s,
+                  z * Math.tan(spacing * j)];
+// Add the point to the geometry.
+
+      var out= points.push(point);
+        //points.push(point2);
+       //return points.push(point1+point2);
+    } 
+}
+
+//
+console.log(points.length);
+parent.postMessage(["console",JSON.stringify(points.length)], "*");
+
+function draw() {
+
+  
+    context.fillStyle = "rgb(0,0,0)";
+    context.fillRect(0, 0, width, height);
+    
+    angleX=((mouseX/width)-0.5)/10;
+    angleY=((mouseY/height)-0.45)/10;
+
+// Here we run through each point and work out where it should be drawn
+
+    for (var i = 0; i < numPoints; i++) {
+        point3d = points[i];
+        z3d = point3d[2];
+        
+// This is the speed of the z
+// It moves the points forwards in space
+// We don't need it for the pure rotate
+        // z3d -= 1.0;
+
+// Check that the points aren't disappearing into space and if so push them back
+// This also stops them stretching
+// When they get too close
+        if (z3d < -fov) z3d += 0;
+        
+        point3d[2] = z3d;
+ 
+ // Calculate the rotation
+ 
+    rotateX(point3d,angleX);
+    rotateY(point3d,angleY);
+ 
+ // Get the point in position 
+ 
+        x3d = point3d[0];
+        y3d = point3d[1];
+        z3d = point3d[2];
+// Convert the Z value to a scale factor
+// This will give the appearance of depth
+        var scale = (fov / (fov + z3d));
+
+// Store the X value with the scaling
+// FOV is taken into account
+// (just pushing it over to the left a bit too)
+        var x2d = (x3d * scale) + HALF_WIDTH / 2;
+
+// Store the Y value with the scaling
+// FOV is taken into account
+
+        var y2d = (y3d * scale) + HALF_HEIGHT;
+
+// Draw the point
+
+// Set the size based on scaling
+        context.lineWidth = scale;
+var grd=context.createRadialGradient(mouseX,mouseY,80,mouseX,mouseY,300);
+       grd.addColorStop(0,"#FF3399");
+       //grd.addColorStop(1,"#C1E3FF");
+       grd.addColorStop(1,"#33FFFF");
+          context.strokeStyle = grd
+          context.fillStyle = grd
+       // context.strokeStyle = "rgb(0,255,255)";
+        context.beginPath();
+        context.moveTo(x2d, y2d);
+        context.lineTo(x2d + scale, y2d);
+      
+        context.stroke();
+    }
+ requestAnimationFrame(draw);
+}
+
+ requestAnimationFrame(draw);
+
+function rotateX(point3d,angleX) {
+        var x = point3d[0]; 
+        var z = point3d[2]; 
+ 
+        var cosRY = Math.cos(angleX);
+        var sinRY = Math.sin(angleX);
+        
+        var tempz = z; 
+        var tempx = x;
+
+        x= (tempx*cosRY)+(tempz*sinRY);
+        z= (tempx*sinRY)+(tempz*-cosRY);
+
+        point3d[0] = x;
+        point3d[2] = z;
+          
+}
+
+function rotateY(point3d,angleY) {
+        var y = point3d[1];
+        var z = point3d[2]; 
+ 
+        var cosRX = Math.cos(angleY);
+        var sinRX = Math.sin(angleY);
+        
+        var tempz = z; 
+        var tempy = y;
+
+        y= (tempy*cosRX)+(tempz*sinRX);
+        z= (tempy*sinRX)+(tempz*-cosRX);
+
+        point3d[1] = y;
+        point3d[2] = z;
+          
+} 
+
+    //here's our function 'getMouse'.
+function getMouse (mousePosition) {
+//for other browsers..
+  if (mousePosition.layerX || mousePosition.layerX === 0) { // Firefox?
+    mouseX = mousePosition.layerX;
+    mouseY = mousePosition.layerY;
+  } else if (mousePosition.offsetX || mousePosition.offsetX === 0) { // Opera?
+    mouseX = mousePosition.offsetX;
+    mouseY = mousePosition.offsetY;
+  }
+}
+
+  
+  
+  
+
+ 
+  
+</script>
+</body>
+</html>
