@@ -31,7 +31,7 @@ The project incorporates technology from Sound and Signal processing and 3D grap
   myClock.setTempo(120);
   myClock.setTicksPerBeat(4);
 ```
-* The maxiClock system is also used. Call ticker() inside the play() function to advance the clock.
+* The maxiClock system is also used. Run a test with a conditional statement to see if there is a clock tick. Call ticker() inside the play() function to advance the clock.
 The song() function is created and the conditional statement and modulus % are used in it to produce a more interesting rhythm.
 ```
      function song()
