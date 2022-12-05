@@ -91,5 +91,5 @@ Basic perspective projection is used.
 
 ```
 ## The Challenges of Development Projects
-*The sound is sometimes distorted, which makes the mix often sound bad.
-*Different browsers load different pages due to browser compatibility issues.
+* The sound is sometimes distorted, which makes the mix often sound bad.
+* Different browsers load different pages due to browser compatibility issues.
