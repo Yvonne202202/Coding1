@@ -26,7 +26,7 @@ The project incorporates technology from Sound and Signal processing and 3D grap
 ```
    var beatOut = beat.play(myOsc.sinewave(0.01))*10;
 ```
-* The clock speed is set to 120 by using setTempo(). And the number of beats is set to 4 by setTicksPerBeat().
+*  Sets up a maxiClock object called 'myClock'.The clock speed is set to 120 by using setTempo(). And the number of beats is set to 4 by setTicksPerBeat().
 ```
   myClock.setTempo(120);
   myClock.setTicksPerBeat(4);
