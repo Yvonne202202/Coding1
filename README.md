@@ -23,7 +23,14 @@ The project incorporates technology from Sound and Signal processing and 3D grap
 
 ```
 * To make the sound more distinctive, the method sinewave() in maxiOsc is used. 
+```
+   var beatOut = beat.play(myOsc.sinewave(0.01))*10;
+```
 * The clock speed is set to 120 by using setTempo(). And the number of beats is set to 4 by setTicksPerBeat().
+```
+  myClock.setTempo(120);
+  myClock.setTicksPerBeat(4);
+```
 * The maxiClock system is also used. Call ticker() inside the play() function to advance the clock.
 The song() function is created and the conditional statement and modulus % are used in it to produce a more interesting rhythm.
 
