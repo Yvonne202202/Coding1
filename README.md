@@ -96,4 +96,4 @@ Basic perspective projection is used.
 * The sphere of points is so thin that it doesn't look obvious.
 
 ## Future plan
-I would like to create sphere of points that move to follow the rhythm of the sound.
+I would like to create sphere of points that move to follow the rhythm of the sound. Like changing shape to follow the beat.
