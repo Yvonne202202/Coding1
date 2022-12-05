@@ -72,4 +72,21 @@ Basic perspective projection is used.
    var size = 500;
 ```
 * CanvasRenderingContext2D.CreateRadialGradient() is used, and through in which access to the mouse parameters for interaction of graphics and the gradient effect.
+```
+      // Draw the point
 
+      // Set the size based on scaling
+        context.lineWidth = scale;
+        var grd=context.createRadialGradient(mouseX,mouseY,80,mouseX,mouseY,300);
+        grd.addColorStop(0,"#FF3399");
+        grd.addColorStop(1,"#33FFFF");
+        context.strokeStyle = grd
+        context.fillStyle = grd
+       // context.strokeStyle = "rgb(0,255,255)";
+        context.beginPath();
+        context.moveTo(x2d, y2d);
+        context.lineTo(x2d + scale, y2d);
+      
+        context.stroke();
+
+```
