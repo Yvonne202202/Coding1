@@ -56,7 +56,20 @@ The song() function is created and the conditional statement and modulus % are u
 
 ## 3D Graphics
 Basic perspective projection is used. 
-* The x, y, and z coordinates are used to create the basic 3D graphics. 
 * The 3D model is a sphere of points with a ring number of 80.
+* The x, y, and z coordinates are used to create the basic 3D graphics. 
+```
+   var dim = 80; // This is the number of rings
+   // Each ring has as many points as there are rings8
+   // This is the spacing for each ring
+   var spacing = ((Math.PI * 5.5) / dim);
+   //var spacing = 200
+   //var spacing = Math.sin(dim)
+   // This is the total number of points
+   var numPoints = dim * dim;
+
+   // This is how big the sphere is.
+   var size = 500;
+```
 * CanvasRenderingContext2D.CreateRadialGradient() is used, and through in which access to the mouse parameters for interaction of graphics and the gradient effect.
 
