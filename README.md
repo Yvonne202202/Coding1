@@ -90,3 +90,5 @@ Basic perspective projection is used.
         context.stroke();
 
 ```
+## The Challenges of Development Projects
+The sound is sometimes distorted, which makes the mix often sound bad.
